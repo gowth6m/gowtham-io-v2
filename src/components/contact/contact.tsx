@@ -5,7 +5,7 @@ import React from "react";
 export default function Contact() {
   return (
     <section id="contact" className="flex flex-col">
-      <h1 className="text-xl font-semibold text-[var(--lightest-slate)] md:hidden py-2 md:py-0">
+      <h1 className="text-xl font-semibold text-[var(--lightest-slate)] md:invisible py-2 md:py-0">
         Contact
       </h1>
       <div className="">
@@ -15,8 +15,8 @@ export default function Contact() {
           href="mailto:contact@gowtham.co.uk"
           className="text-[var(--green-bright)] group md:px-1"
         >
-          <br className="md:hidden" />
-          <br className="md:hidden" />
+          <br className="md:invisible" />
+          <br className="md:invisible" />
           Get in touch
           <FontAwesomeIcon
             icon={faArrowRight}

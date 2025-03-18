@@ -17,7 +17,7 @@ export default function Experience() {
             animate="visible"
         >
             <motion.h1
-                className="text-xl font-semibold text-[var(--lightest-slate)] md:hidden"
+                className="text-xl font-semibold text-[var(--lightest-slate)] md:invisible"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"

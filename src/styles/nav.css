@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* NAV */
 .hamburger {
     display: inline-block;
@@ -12,7 +14,7 @@
     border: 0;
     margin: 0;
     overflow: visible;
-    @apply md:hidden;
+    @apply md:invisible;
     z-index: 40;
 }
 

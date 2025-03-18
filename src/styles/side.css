@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 .hover1 {
     color: var(--green-bright);
     transform: translateY(-2px);
@@ -22,7 +24,8 @@
 }
 
 .side-socials a:hover {
-    @apply hover1;
+    color: var(--green-bright);
+    transform: translateY(-2px);
 }
 
 .side-socials::after {
@@ -61,7 +64,8 @@
 }
 
 .side-nav a:hover {
-    @apply hover1;
+    color: var(--green-bright);
+    transform: translateY(-2px);
 }
 
 .side-email {
@@ -91,7 +95,8 @@
 }
 
 .side-email a:hover {
-    @apply hover1;
+    color: var(--green-bright);
+    transform: translateY(-2px);
 }
 
 .vertical-text {

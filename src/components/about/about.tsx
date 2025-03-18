@@ -13,7 +13,7 @@ export default function About() {
             animate="visible"
         >
             <motion.h1
-                className="text-xl font-semibold text-[var(--lightest-slate)] md:hidden my-2 md:my-0"
+                className="text-xl font-semibold text-[var(--lightest-slate)] md:invisible my-2 md:my-0"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"

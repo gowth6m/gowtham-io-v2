@@ -23,7 +23,7 @@ export default function Projects() {
             animate="visible"
         >
             <motion.h1
-                className="text-xl font-semibold text-[var(--lightest-slate)] md:hidden py-2 md:py-0"
+                className="text-xl font-semibold text-[var(--lightest-slate)] md:invisible py-2 md:py-0"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
