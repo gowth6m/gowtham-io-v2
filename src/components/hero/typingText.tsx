@@ -13,12 +13,10 @@ export default function TypingText({ className }: any) {
   const period = 2000;
 
   const toRotate = [
-    "I create stuff sometimes.",
-    "I'm probably eating right now",
-    "What do you think about my website?",
-    "Send me food suggestions!",
+    "Probably vibe coding",
     "Scroll down to see more!",
     "Eat, Sleep, Code, Repeat",
+    "Check out my startup",
   ];
 
   useEffect(() => {
