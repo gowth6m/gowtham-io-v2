@@ -13,7 +13,7 @@ export default function TypingText({ className }: any) {
   const period = 2000;
 
   const toRotate = [
-    "Probably vibe coding",
+    "Probably vibe coding right now",
     "Scroll down to see more!",
     "Eat, Sleep, Code, Repeat",
     "Check out my startup",

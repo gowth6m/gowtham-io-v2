@@ -25,7 +25,14 @@ export default function About() {
                 initial="hidden"
                 animate="visible"
             >
-                I&#39;m a software engineer based in{" "}
+                It all started when I first tried to edit a website by clicking
+                on inspect element. Later led to me building my first website
+                using html, css and js. I slowly fell into a rabbit hole of
+                learning new web technologies and going into the depths of
+                software engineering.
+                <br />
+                <br />
+                Fast forward today, I&#39;m a software engineer based in{" "}
                 <a
                     href="https://www.google.com/maps/place/London"
                     target="_blank"
