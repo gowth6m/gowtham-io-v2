@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 export const mainMetadata: Metadata = {
     title: "Gowthaman Ravindrathas - Software Engineer based in London, UK",
@@ -58,9 +58,13 @@ export const mainMetadata: Metadata = {
         ],
         apple: "/logo/logo.png",
     },
-    themeColor: "#0a192f",
-    viewport: "width=device-width, initial-scale=1",
     category: "portfolio",
     robots: "index, follow",
     metadataBase: new URL('http://gowtham.io'),
+};
+
+export const viewport: Viewport = {
+    themeColor: "#0a192f",
+    width: "device-width",
+    initialScale: 1,
 };
