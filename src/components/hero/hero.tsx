@@ -5,7 +5,7 @@ import {
     faGithub,
     faInstagram,
     faLinkedinIn,
-    faTwitter,
+    faTwitter as faX,
 } from "@fortawesome/free-brands-svg-icons";
 import TypingText from "./typingText";
 import { motion } from "framer-motion";
@@ -14,10 +14,10 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import React, { RefObject, useEffect, useState, useMemo } from "react";
 
 interface HeroProps {
-    refAbout: RefObject<HTMLDivElement>;
-    refExperience: RefObject<HTMLDivElement>;
-    refProjects: RefObject<HTMLDivElement>;
-    refContact: RefObject<HTMLDivElement>;
+    refAbout: RefObject<HTMLDivElement | null>;
+    refExperience: RefObject<HTMLDivElement | null>;
+    refProjects: RefObject<HTMLDivElement | null>;
+    refContact: RefObject<HTMLDivElement | null>;
 }
 
 const Hero: React.FC<HeroProps> = React.memo(
@@ -68,7 +68,7 @@ const Hero: React.FC<HeroProps> = React.memo(
                 },
                 {
                     name: "Twitter",
-                    icon: faTwitter,
+                    icon: faX,
                     href: "https://twitter.com/gowth6m",
                 },
                 {
@@ -159,7 +159,7 @@ const Hero: React.FC<HeroProps> = React.memo(
                         <h2 className="text-[var(--lightest-slate)]">
                             Full Stack Software Engineer
                         </h2>
-                        <TypingText className="text-base" />
+                        <TypingText className="text-base mt-4" />
                     </div>
 
                     {/* Nav */}

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { URL } from "next/dist/compiled/@edge-runtime/primitives/url";
 
 export const mainMetadata: Metadata = {
     title: "Gowthaman Ravindrathas - Software Engineer based in London, UK",

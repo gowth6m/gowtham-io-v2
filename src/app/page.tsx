@@ -10,7 +10,7 @@ import Experience from "@/components/experience/experience";
 const SectionContainer = (props: {
     id: string;
     children: React.ReactNode;
-    reference: React.RefObject<HTMLDivElement>;
+    reference: React.RefObject<HTMLDivElement | null>;
 }) => {
     return (
         <div
@@ -24,10 +24,10 @@ const SectionContainer = (props: {
 };
 
 const Home: React.FC = () => {
-    const refAbout = useRef<HTMLDivElement>(null);
-    const refExperience = useRef<HTMLDivElement>(null);
-    const refProjects = useRef<HTMLDivElement>(null);
-    const refContact = useRef<HTMLDivElement>(null);
+    const refAbout = useRef<HTMLDivElement | null>(null);
+    const refExperience = useRef<HTMLDivElement | null>(null);
+    const refProjects = useRef<HTMLDivElement | null>(null);
+    const refContact = useRef<HTMLDivElement | null>(null);
 
     return (
         <main className="md:h-screen w-full z-10">
