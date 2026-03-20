@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShuttleSpace, faClose } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
-import React, { useState } from "react";
-import Contact from "../contact/contact";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShuttleSpace, faClose } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import Contact from '../contact/contact';
 
 export default function Footer() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -24,7 +24,7 @@ export default function Footer() {
       <button
         aria-label="Old versions of the website"
         onClick={togglePopup}
-        className="cursor-pointer group hover:text-[var(--green-bright)]"
+        className="cursor-pointer group hover:text-[var(--green-bright)] ml-auto"
       >
         <FontAwesomeIcon
           icon={faShuttleSpace}
@@ -52,7 +52,7 @@ const Popup: React.FC<PopupProps> = ({ closePopup }) => {
       exit={{ opacity: 0 }}
       onClick={closePopup}
       className="fixed top-0 bottom-0 left-0 right-0 z-50 flex justify-center items-center"
-      style={{ backdropFilter: "blur(5px)" }}
+      style={{ backdropFilter: 'blur(5px)' }}
     >
       <motion.div
         initial={{ scale: 0.7, opacity: 0 }}
@@ -63,11 +63,7 @@ const Popup: React.FC<PopupProps> = ({ closePopup }) => {
       >
         <div className="flex flex-col">
           <div className="flex flex-row justify-end">
-            <button
-              onClick={closePopup}
-              className="group"
-              aria-label="Close popup"
-            >
+            <button onClick={closePopup} className="group" aria-label="Close popup">
               <FontAwesomeIcon
                 icon={faClose}
                 className="inline h-[18px] duration-150 bg-[var(--lightest-navy)] group-hover:text-[var(--green-bright)] px-2"
@@ -104,13 +100,13 @@ const Popup: React.FC<PopupProps> = ({ closePopup }) => {
 
 const oldPages = [
   {
-    title: "Version 0 (2019)",
-    version: "v0",
-    image: "./images/v0.webp",
+    title: 'Version 0 (2019)',
+    version: 'v0',
+    image: './images/v0.webp',
   },
   {
-    title: "Version 1 (2022)",
-    version: "v1",
-    image: "./images/v1.webp",
+    title: 'Version 1 (2022)',
+    version: 'v1',
+    image: './images/v1.webp',
   },
 ];

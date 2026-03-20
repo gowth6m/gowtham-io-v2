@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 
 export default function Contact() {
   return (
@@ -9,15 +9,15 @@ export default function Contact() {
         Contact
       </h1>
       <div className="">
-        Do you like my work? Want to collaborate on a project? Feel free to get
-        in touch!{" "}
+        Give me a follow on my socials
+        <br />
+        or drop a message on{' '}
         <a
-          href="mailto:contact@gowtham.co.uk"
+          href="https://www.linkedin.com/in/gowth6m/"
+          target="_blank"
           className="text-[var(--green-bright)] group md:px-1"
         >
-          <br className="md:hidden" />
-          <br className="md:hidden" />
-          Get in touch
+          LinkedIn
           <FontAwesomeIcon
             icon={faArrowRight}
             className="inline h-[16px] hover:text-[var(--green-bright)] px-2 translate-y-[3px] duration-150 group-hover:translate-x-1"

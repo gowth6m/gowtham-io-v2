@@ -4,37 +4,37 @@ import {
   faInstagram,
   faLinkedinIn,
   faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import React from "react";
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import React from 'react';
 
 export default function SideSocials() {
   const socials = [
     {
-      name: "GitHub",
+      name: 'GitHub',
       icon: faGithub,
-      href: "https://github.com/gowth6m",
+      href: 'https://github.com/gowth6m',
     },
     {
-      name: "LinkedIn",
+      name: 'LinkedIn',
       icon: faLinkedinIn,
-      href: "https://www.linkedin.com/in/gowth6m/",
+      href: 'https://www.linkedin.com/in/gowth6m/',
     },
     {
-      name: "Instagram",
+      name: 'Instagram',
       icon: faInstagram,
-      href: "https://www.instagram.com/gowth6m/",
+      href: 'https://www.instagram.com/gowth6m/',
     },
     {
-      name: "Twitter",
+      name: 'Twitter',
       icon: faTwitter,
-      href: "https://twitter.com/gowth6m",
+      href: 'https://twitter.com/gowth6m',
     },
     {
-      name: "CodePen",
+      name: 'CodePen',
       icon: faCodepen,
-      href: "https://codepen.io/Gowth6m",
+      href: 'https://codepen.io/Gowth6m',
     },
   ];
 

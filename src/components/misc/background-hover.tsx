@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 const THROTTLE_INTERVAL = 20; // throttle every 20ms
 
@@ -19,15 +19,15 @@ const BackgroundHover: React.FC = () => {
       if (hoverLight.current) {
         hoverLight.current.style.left = `${pageX}px`;
         hoverLight.current.style.top = `${pageY}px`;
-        hoverLight.current.style.position = "fixed";
-        hoverLight.current.style.transition = "left 0s, top 0s"; // add CSS transition
+        hoverLight.current.style.position = 'fixed';
+        hoverLight.current.style.transition = 'left 0s, top 0s'; // add CSS transition
       }
     };
 
-    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener('pointermove', handlePointerMove);
 
     return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener('pointermove', handlePointerMove);
     };
   }, []);
 
