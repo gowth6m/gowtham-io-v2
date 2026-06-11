@@ -19,7 +19,7 @@ const experience: ExperienceModel[] = [
     role: 'Co-Founder & CTO',
     company: 'Wavelink',
     link: 'https://wavelink.co',
-    dates: 'Sep 2025 - Present',
+    dates: 'Jan 2026 - Present',
     description:
       'Build AI-Powered Operating System where creators grow, brands win, and campaigns run themselves. Leading the technical vision and product development.',
     descriptions: [],
@@ -46,12 +46,12 @@ const experience: ExperienceModel[] = [
   },
   {
     display: true,
-    role: 'Senior Frontend Developer',
-    company: 'Pollen Technologies',
-    link: 'https://www.pollentechnologies.com',
-    dates: 'Jul 2023 - Sep 2025',
+    role: 'Software Engineer',
+    company: 'Atlas Financial',
+    link: 'https://atlas.financial',
+    dates: 'Jul 2023 - Dec 2025',
     description:
-      'Lead frontend development at Pollen Technologies, building and optimising the core platform that helps businesses manage finances, assets, and beneficiaries. Focused on performance, scalability, and a seamless user experience to handle high traffic and large-volume transactions.',
+      'Led migration from a legacy codebase to a modern stack and reduced overall platform latency by 40%. Introduced AWS CDK to manage infrastructure as code, improving CI/CD rollout speed by 60%.',
     descriptions: [],
     technologies: [
       'React',
@@ -73,7 +73,6 @@ const experience: ExperienceModel[] = [
       'DynamoDB',
       'Lambda',
       'Jest',
-      'Terraform',
     ],
     projects: [],
   },
@@ -84,7 +83,7 @@ const experience: ExperienceModel[] = [
     link: 'https://orsay.ai',
     dates: 'Jan 2024 - May 2024',
     description:
-      'Build a platform that uses LLMs to unify lead interactions from Instagram, WhatsApp, and Slack, enabling AI-driven responses and conversation management in a single dashboard. AI agents assist users by analysing messages, suggesting replies, and automating follow-ups, improving efficiency and engagement',
+      'Built AI agents to unify lead interactions across Instagram, WhatsApp, and Slack, enabling automated, human-like conversations from a single dashboard. Designed dynamic prompt workflows using LangChain and OpenAI with RAG, and implemented features like multi-turn memory and persona switching. Helped grow the platform from 0 to $20k MRR.',
     descriptions: [],
     technologies: [
       'Python',
@@ -111,12 +110,12 @@ const experience: ExperienceModel[] = [
   },
   {
     display: true,
-    role: 'Frontend Developer',
+    role: 'Software Engineer',
     company: 'HIVED',
     link: 'https://hived.space',
     dates: 'Jan 2023 - Jul 2023',
     description:
-      'Lead frontend development at HIVED - create and implement frontend solutions for a variety of services used by HIVED. Work on customer tracking page, warehouse sortation app and driver delivery app.',
+      'Built the internal warehouse sortation app used daily to manage parcel loading across delivery vehicles. Implemented features like parcel tracking, driver management, and warehouse management to improve efficiency and accuracy.',
     descriptions: [
       'Lead frontend development at HIVED',
       'Create and implement solutions for a variety of microservices used by HIVED',
@@ -151,7 +150,7 @@ const experience: ExperienceModel[] = [
     ],
   },
   {
-    display: true,
+    display: false,
     role: 'Software Engineer',
     company: 'University of Exeter',
     link: 'https://www.exeter.ac.uk/',
@@ -189,7 +188,7 @@ const experience: ExperienceModel[] = [
     ],
   },
   {
-    display: true,
+    display: false,
     role: 'Backend Engineer',
     company: 'European Space Agency (ESA)',
     link: 'https://www.esa.int/',
@@ -247,30 +246,6 @@ const experience: ExperienceModel[] = [
       'SQS',
       'SNS',
       'RDS',
-    ],
-  },
-  {
-    display: false,
-    role: 'Full Stack Developer',
-    company: 'Swmstudios',
-    link: 'https://swmstudios.com/',
-    dates: 'Mar 2019 - Dec 2020',
-    description:
-      'Design and develop website for Swmstudios and clients, develop and maintain internal tools. New website increased traffic by 200%. Developed internal tools to help manage clients and projects.',
-    descriptions: [
-      'Design and develop websites for customers',
-      'Develop and maintain internal tools',
-    ],
-    technologies: [
-      'React',
-      'Next.js',
-      'Redux',
-      'Django',
-      'Framer motion',
-      'TypeScript',
-      'Vercel',
-      'MongoDB',
-      'Go Gin Gonic',
     ],
   },
 ];
