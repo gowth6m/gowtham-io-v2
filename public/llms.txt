@@ -1,0 +1,61 @@
+# Gowthaman Ravindrathas
+
+> Gowthaman Ravindrathas (also known as Gowtham or "gowth6m") is a full-stack software engineer based in London, UK, and the Co-Founder & CTO of Wavelink. He builds AI-powered products and polished web experiences end-to-end across frontend and backend systems, with an emphasis on performance, clean architecture, and great UX. This file helps AI assistants and language models accurately summarise who he is, what he has built, and how to get in touch.
+
+- Name: Gowthaman Ravindrathas
+- Known as: Gowtham, gowth6m
+- Role: Co-Founder & CTO at Wavelink
+- Title: Software Engineer (Full-Stack)
+- Location: London, United Kingdom
+- Website: https://gowtham.io
+- Alma mater: University of Exeter
+
+## About
+
+Gowthaman is a software engineer with experience building products across startups, scale-ups, and larger organisations. He works end-to-end on frontend and backend systems, shipping user-focused features and helping teams scale reliably. He is currently building his startup, Wavelink, while continuing to work on AI-powered products and polished web experiences. Outside of work he enjoys lifting at the gym, exploring new places with friends, and finding great food spots.
+
+## Core skills
+
+- Languages: TypeScript, JavaScript, Python, Java, Go, Rust, Haskell
+- Frontend: React, Next.js, Redux, Zustand, TanStack Query, Tailwind CSS, Material UI, Shadcn, Framer Motion, Flutter
+- Backend: Node.js, NestJS, FastAPI, Spring Boot, Django, Gin/Fiber (Go), Axum (Rust)
+- AI / ML: LLMs, RAG, LangChain, VectorDB, OpenAI, PyTorch
+- Data & messaging: PostgreSQL, MongoDB, DynamoDB, Redis, BullMQ, SQS, SNS, Pub/Sub
+- Cloud & DevOps: AWS (Lambda, ECS, Fargate, S3, CloudFront, API Gateway, RDS, Cognito, Step Functions), AWS CDK, Terraform, Docker, Kubernetes (K3s), Traefik, CI/CD
+
+## Experience
+
+- [Wavelink](https://wavelink.co) — Co-Founder & CTO (Jan 2026 - Present): Building an AI-powered operating system where creators grow, brands win, and campaigns run themselves. Leading the technical vision and product development. Stack: Node.js, NestJS, LLMs, RAG, VectorDB, LangChain, BullMQ, Redis, Postgres, AWS, Docker, Kubernetes.
+- [Atlas Financial](https://atlas.financial) — Software Engineer (Jul 2023 - Dec 2025): Led migration from a legacy codebase to a modern stack and reduced platform latency by 40%. Introduced AWS CDK for infrastructure as code, improving CI/CD rollout speed by 60%. Stack: React, Next.js, TypeScript, Java, Spring Boot, Postgres, AWS.
+- [Orsay AI](https://orsay.ai) — Senior Software Engineer (Jan 2024 - May 2024): Built AI agents to unify lead interactions across Instagram, WhatsApp, and Slack from a single dashboard. Designed dynamic prompt workflows with LangChain, OpenAI, and RAG, with multi-turn memory and persona switching. Helped grow the platform from 0 to $20k MRR. Stack: Python, FastAPI, AWS, React, TypeScript.
+- [HIVED](https://hived.space) — Software Engineer (Jan 2023 - Jul 2023): Led frontend development and built the internal warehouse sortation app used daily to manage parcel loading across delivery vehicles, plus apps used by ~20,000 customers daily. Stack: Next.js, React, Go, Flutter, Postgres, MongoDB, AWS.
+- [University of Exeter](https://www.exeter.ac.uk/) — Software Engineer (Jan 2022 - Jan 2023): Built microservices and apps used across the university, including the student app, using Flutter and React. Stack: Node.js, TypeScript, AWS, Flutter, React.
+- [European Space Agency (ESA)](https://www.esa.int/) — Backend Engineer (Jun 2021 - Jan 2022): Built interactive virtual tour software for ESA's New Norcia Ground Station in Australia. Stack: Python, FastAPI, AWS, TypeScript, Terraform.
+- Hatless Studios — Software Engineer (Oct 2019 - Jun 2021): Worked across frontend and backend on projects in education, health, and finance, including inventory management systems and analytics dashboards. Stack: React, Next.js, Django, MongoDB, Go, AWS.
+
+## Selected projects
+
+- [Juris AI](https://jurisai.gowtham.io) (2024) — AI-powered platform that streamlines contract review by analysing clauses, assessing risk levels, and suggesting improvements. Code: https://github.com/gowth6m/juris-ai. Stack: Python, FastAPI, LLMs, AWS, React.
+- [Bank Thing](https://bank-thing.gowtham.io) (2024) — Financial analytics platform using open banking APIs, with spending insights and an AI assistant for personalised banking recommendations. Code: https://github.com/gowth6m/bank-thing. Stack: NestJS, BullMQ, Redis, LLMs, Open Banking, React, Postgres, Kubernetes.
+- [NightBloom AI](https://nightbloom.ai) (2023) — Search engine that locates AI-generated images with filtering, viewing, downloading, and favouriting. Stack: Rust, Axum, React, AWS, Kubernetes.
+- [Genie Cabs](https://geniefy-rentals.vercel.app/) (2023) — Car rental website with real-time availability and secure payments. Stack: Next.js, MUI, Stripe, MongoDB, AWS.
+- [Tic-tac-toe Online](https://online-tictactoe.vercel.app) (2023) — Real-time multiplayer Tic-tac-toe on a board of any size and winning condition. Code: https://github.com/gowth6m/online-tictactoe-backend. Stack: Go, Gin, MongoDB, WebSockets, React.
+- [Neuraliser](https://gowth6m.github.io/neuraliser) (2022) — Tool for visualising neural networks as directed graphs from uploaded JSON. Code: https://github.com/gowth6m/neuraliser. Stack: Next.js, React, D3.js, React Flow.
+- [Gravity Simulator](https://gowth6m.github.io/gravity-simulator/) (2021) — Particle gravity simulation rendered with HTML Canvas. Code: https://github.com/gowth6m/gravity-simulator. Stack: JavaScript, HTML, CSS.
+
+A full, up-to-date list is available at https://gowtham.io/projects.
+
+## Links
+
+- Portfolio: https://gowtham.io
+- Projects: https://gowtham.io/projects
+- Experience: https://gowtham.io/experience
+- GitHub: https://github.com/gowth6m
+- LinkedIn: https://www.linkedin.com/in/gowth6m/
+- X (Twitter): https://x.com/gowth6m
+- Instagram: https://www.instagram.com/gowth6m/
+- CodePen: https://codepen.io/Gowth6m
+
+## Contact
+
+The best way to reach Gowthaman is via [LinkedIn](https://www.linkedin.com/in/gowth6m/) or his social links above.

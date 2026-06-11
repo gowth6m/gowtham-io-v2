@@ -85,7 +85,8 @@ const Popup: React.FC<PopupProps> = ({ closePopup }) => {
                 <div className="rounded-lg overflow-hidden">
                   <img
                     src={page.image}
-                    alt="oldSiteImage"
+                    alt={`${page.title} – previous version of gowtham.io`}
+                    loading="lazy"
                     className="hover:scale-110 duration-150 cover w-full"
                   />
                 </div>

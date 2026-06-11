@@ -26,6 +26,15 @@ export const mainMetadata: Metadata = {
   ],
   creator: 'Gowthaman Ravindrathas',
   publisher: 'Gowthaman Ravindrathas',
+  authors: [{ name: 'Gowthaman Ravindrathas', url: 'https://gowtham.io' }],
+  alternates: {
+    canonical: '/',
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: 'Gowthaman Ravindrathas - Software Engineer Portfolio',
     description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',

@@ -45,7 +45,8 @@ export default function Projects() {
               <div className="pr-2 mt-1">
                 <img
                   src={project.image}
-                  alt={'projectsImage'}
+                  alt={`${project.title} project screenshot by Gowthaman Ravindrathas`}
+                  loading="lazy"
                   className="rounded-lg overflow-hidden w-full object-cover aspect-video"
                 ></img>
               </div>
