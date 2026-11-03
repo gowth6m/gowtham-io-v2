@@ -24,7 +24,9 @@
   height: auto;
   image-rendering: pixelated;
   filter: drop-shadow(0 0 0 transparent);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
 }
 
 .retro-computer-button:hover .retro-canvas,

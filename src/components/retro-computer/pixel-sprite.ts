@@ -37,7 +37,7 @@ const FONT: Record<string, string> = {
   J: '001001001101010',
   K: '101101110101101',
   L: '100100100100111',
-  M: '101111111101101',
+  M: '111111101101101',
   N: '110101101101101',
   O: '010101101101010',
   P: '110101110100100',
@@ -47,7 +47,7 @@ const FONT: Record<string, string> = {
   T: '111010010010010',
   U: '101101101101111',
   V: '101101101101010',
-  W: '101101111111101',
+  W: '101101101111101',
   X: '101101010101101',
   Y: '101101010010010',
   Z: '111001010100111',
@@ -67,11 +67,11 @@ const FONT: Record<string, string> = {
   '!': '010010010000010',
   '?': '110001010000010',
   '-': '000000111000000',
-  '_': '000000000000111',
+  _: '000000000000111',
   '>': '100010001010100',
   '<': '001010100010001',
   '/': '001001010100100',
-  '$': '011110010011110',
+  $: '011110010011110',
   '@': '010101111100011',
   "'": '010010000000000',
   '(': '010100100100010',
@@ -86,7 +86,14 @@ const FONT: Record<string, string> = {
   '|': '010010010010010',
 };
 
-function rect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, c: string) {
+function rect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  c: string
+) {
   ctx.fillStyle = c;
   ctx.fillRect(x, y, w, h);
 }
@@ -188,7 +195,14 @@ export function drawSprite(ctx: CanvasRenderingContext2D, s: SpriteState) {
   const ky = 66;
   box(ctx, kx, ky, 64, 10, NAVY_LIGHT, OUT);
   KEYS.forEach(([x, y, w], i) => {
-    rect(ctx, kx + x, ky + y + (i === s.pressedKey ? 1 : 0), w, 1, i === s.pressedKey ? OUT : NAVY_LIGHTEST);
+    rect(
+      ctx,
+      kx + x,
+      ky + y + (i === s.pressedKey ? 1 : 0),
+      w,
+      1,
+      i === s.pressedKey ? OUT : NAVY_LIGHTEST
+    );
   });
 
   // --- mouse ----------------------------------------------------
