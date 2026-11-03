@@ -5,7 +5,8 @@
 .retro-computer {
   position: relative;
   flex: none;
-  width: 52px; /* 1 CSS px per sprite pixel (2 device px on retina) */
+  /* Icon-sized: on 2x screens each sprite pixel maps to exactly one device pixel */
+  width: 26px;
 }
 
 .retro-computer-button {
@@ -24,7 +25,7 @@
   width: 100%;
   height: auto;
   image-rendering: pixelated;
-  opacity: 0.75;
+  opacity: 0.8;
   transition:
     opacity 0.3s ease,
     filter 0.3s ease,
@@ -34,13 +35,20 @@
 .retro-computer-button:hover .retro-canvas,
 .retro-computer-button:focus-visible .retro-canvas {
   opacity: 1;
-  filter: drop-shadow(0 0 6px rgba(100, 255, 218, 0.35));
+  filter: drop-shadow(0 0 4px rgba(100, 255, 218, 0.45));
   transform: translateY(-4px);
 }
 
 .retro-computer-button:focus-visible {
   outline: 1px dashed var(--green-bright);
   outline-offset: 4px;
+}
+
+/* On 1x screens the sprite is scaled down, so smooth it instead of dropping pixels */
+@media (max-resolution: 1.5dppx) {
+  .retro-canvas {
+    image-rendering: auto;
+  }
 }
 
 /* Small tooltip that only shows on hover/focus */

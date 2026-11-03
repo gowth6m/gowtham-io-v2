@@ -108,7 +108,7 @@ export default function Hero({ refAbout, refExperience, refProjects, refContact 
       </div>
 
       {/* Socials, with a tiny retro computer tucked at the end (opens the GowthamOS terminal) */}
-      <div className="flex flex-row items-end gap-x-6 my-6 md:mb-0 md:mt-auto">
+      <div className="flex flex-row items-center gap-x-6 my-6 md:mb-0 md:mt-auto">
         <Socials />
         <RetroComputer className="retro-computer-small" />
       </div>
