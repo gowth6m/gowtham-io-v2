@@ -230,7 +230,7 @@ export default function RetroComputer({ className = '' }: { className?: string }
           aria-hidden
         />
         <span className="retro-hint" aria-hidden>
-          {history.length ? '› click to continue' : '› click to boot'}
+          {history.length ? '> back to terminal' : '> open terminal'}
         </span>
       </button>
 

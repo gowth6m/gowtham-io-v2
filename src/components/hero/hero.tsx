@@ -17,7 +17,7 @@ import RetroComputer from '@/components/retro-computer/retro-computer';
 const Socials = React.memo(() => {
   return (
     <motion.div
-      className="flex flex-row gap-x-6 my-6 md:mb-0 md:mt-auto"
+      className="flex flex-row items-center gap-x-6"
       variants={containerVariantsDelayed}
       initial="hidden"
       animate="visible"
@@ -107,11 +107,11 @@ export default function Hero({ refAbout, refExperience, refProjects, refContact 
         </div>
       </div>
 
-      {/* Retro computer: click it to open the GowthamOS terminal */}
-      <RetroComputer className="retro-desktop-only mt-10 max-w-[208px] md:mt-6" />
-
-      {/* Socials */}
-      <Socials />
+      {/* Socials, with a tiny retro computer tucked at the end (opens the GowthamOS terminal) */}
+      <div className="flex flex-row items-end gap-x-6 my-6 md:mb-0 md:mt-auto">
+        <Socials />
+        <RetroComputer className="retro-computer-small" />
+      </div>
     </motion.section>
   );
 }

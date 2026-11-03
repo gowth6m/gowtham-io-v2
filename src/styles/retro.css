@@ -4,7 +4,8 @@
 
 .retro-computer {
   position: relative;
-  width: 100%;
+  flex: none;
+  width: 52px; /* 1 CSS px per sprite pixel (2 device px on retina) */
 }
 
 .retro-computer-button {
@@ -23,50 +24,50 @@
   width: 100%;
   height: auto;
   image-rendering: pixelated;
-  filter: drop-shadow(0 0 0 transparent);
+  opacity: 0.75;
   transition:
+    opacity 0.3s ease,
     filter 0.3s ease,
     transform 0.3s ease;
 }
 
 .retro-computer-button:hover .retro-canvas,
 .retro-computer-button:focus-visible .retro-canvas {
-  filter: drop-shadow(0 0 10px var(--green-tint)) drop-shadow(0 0 2px rgba(100, 255, 218, 0.35));
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(100, 255, 218, 0.35));
   transform: translateY(-4px);
 }
 
 .retro-computer-button:focus-visible {
   outline: 1px dashed var(--green-bright);
-  outline-offset: 6px;
+  outline-offset: 4px;
 }
 
+/* Small tooltip that only shows on hover/focus */
 .retro-hint {
-  display: block;
-  margin-top: 10px;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translate(-50%, 4px);
+  padding: 1px 8px;
+  border: 1px solid var(--green-bright);
+  border-radius: 2px;
+  background: var(--light-navy);
   font-family: var(--font-vt323), monospace;
-  font-size: 1.15rem;
-  letter-spacing: 0.06em;
+  font-size: 1rem;
   white-space: nowrap;
-  color: var(--dark-slate);
-  transition: color 0.3s ease;
+  color: var(--green-bright);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .retro-computer-button:hover .retro-hint,
 .retro-computer-button:focus-visible .retro-hint {
-  color: var(--green-bright);
-}
-
-/* Hide in the sticky hero column when the viewport is too short for it */
-@media (min-width: 768px) {
-  .retro-computer.retro-desktop-only {
-    max-width: min(208px, calc((100vh - 560px) * 1.2));
-  }
-}
-
-@media (min-width: 768px) and (max-height: 680px) {
-  .retro-computer.retro-desktop-only {
-    display: none;
-  }
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 /* ---------------- overlay ---------------- */
@@ -362,5 +363,9 @@
   .retro-computer-button:hover .retro-canvas,
   .retro-computer-button:focus-visible .retro-canvas {
     transform: none;
+  }
+
+  .retro-hint {
+    transition: none;
   }
 }
