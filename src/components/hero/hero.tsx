@@ -12,6 +12,7 @@ import { motion } from 'framer-motion';
 import React, { RefObject, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useIntersectionObserver from '@/hooks/use-intersection-observer';
+import ScrollTree from '@/components/misc/scroll-tree';
 
 const Socials = React.memo(() => {
   return (
@@ -105,6 +106,9 @@ export default function Hero({ refAbout, refExperience, refProjects, refContact 
           ))}
         </div>
       </div>
+
+      {/* Decorative scroll-reactive tree (desktop with enough height only) */}
+      <ScrollTree className="hidden md:flex [@media(max-height:720px)]:hidden flex-1 min-h-0 max-h-[260px] py-10" />
 
       {/* Socials */}
       <Socials />
