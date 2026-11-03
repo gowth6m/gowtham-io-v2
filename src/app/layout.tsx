@@ -7,6 +7,7 @@ import type { Metadata, Viewport } from 'next';
 import { mainMetadata, viewport as siteViewport } from './metadata';
 import { Inter, Comfortaa, MuseoModerno, VT323 } from 'next/font/google';
 import BackgroundAnimation from '@/components/misc/background-animation';
+import EasterEggs from '@/components/easter-eggs/easter-eggs';
 
 // ------------------------------------------------------------
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BackgroundAnimation color={'white'} />
         {/* <BackgroundHover /> */}
         {children}
+        <EasterEggs />
       </body>
     </html>
   );
