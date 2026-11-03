@@ -63,7 +63,7 @@ export default function Snake({
     let over = false;
 
     const draw = () => {
-      ctx.fillStyle = '#020a08';
+      ctx.fillStyle = '#020c1b';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.strokeStyle = color;
       ctx.globalAlpha = 0.35;

@@ -108,7 +108,7 @@ export default function Hero({ refAbout, refExperience, refProjects, refContact 
       </div>
 
       {/* Retro computer: click it to open the GowthamOS terminal */}
-      <RetroComputer className="retro-desktop-only mt-10 max-w-[260px] md:mt-6" />
+      <RetroComputer className="retro-desktop-only mt-10 max-w-[264px] md:mt-6" />
 
       {/* Socials */}
       <Socials />
