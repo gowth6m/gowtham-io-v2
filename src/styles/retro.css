@@ -1,0 +1,385 @@
+/* ------------------------------------------------------------
+   Retro computer (hero) + GowthamOS terminal overlay
+   ------------------------------------------------------------ */
+
+.retro-computer {
+  position: relative;
+  width: 100%;
+}
+
+.retro-computer-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  outline: none;
+}
+
+.retro-computer-button:focus-visible {
+  box-shadow: 0 0 0 2px var(--green-bright);
+}
+
+.retro-stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 0.8;
+}
+
+.retro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.retro-canvas.is-ready {
+  opacity: 1;
+}
+
+.retro-fallback {
+  position: absolute;
+  left: 12%;
+  top: 6%;
+  width: 76%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.retro-hint {
+  display: block;
+  margin-top: -2px;
+  text-align: center;
+  font-family: var(--font-vt323), monospace;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: var(--slate);
+  opacity: 0.7;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.retro-computer-button:hover .retro-hint,
+.retro-computer-button:focus-visible .retro-hint {
+  color: var(--green-bright);
+  opacity: 1;
+}
+
+/* Hide in the sticky hero column when the viewport is too short for it */
+@media (min-width: 768px) {
+  .retro-computer.retro-desktop-only {
+    max-width: min(300px, calc((100vh - 600px) * 1.1));
+  }
+}
+
+@media (min-width: 768px) and (max-height: 720px) {
+  .retro-computer.retro-desktop-only {
+    display: none;
+  }
+}
+
+/* ---------------- overlay ---------------- */
+
+.retro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(2, 12, 27, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.retro-crt {
+  --retro-color: #64ffda;
+  display: flex;
+  flex-direction: column;
+  width: min(900px, 100%);
+  height: min(620px, 100%);
+  padding: 14px 18px 16px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #e2dbc8 0%, #d3cbb6 60%, #c4bba4 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.12),
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 120px color-mix(in srgb, var(--retro-color) 18%, transparent);
+  outline: none;
+  font-family: var(--retro-font, monospace);
+  font-variant-ligatures: none;
+}
+
+.retro-crt-animate {
+  animation: retro-power-on 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes retro-power-on {
+  0% {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.retro-bezel-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 10px;
+  color: #6f6857;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+
+.retro-led {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--retro-color);
+  box-shadow: 0 0 8px var(--retro-color);
+}
+
+.retro-brand {
+  text-transform: uppercase;
+}
+
+.retro-close {
+  margin-left: auto;
+  padding: 2px 10px;
+  border-radius: 6px;
+  border: 1px solid #b3aa93;
+  background: #e9e3d3;
+  color: #5d574a;
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.retro-close:hover,
+.retro-close:focus-visible {
+  background: #f4efe2;
+  outline: none;
+  border-color: #8e8672;
+}
+
+.retro-screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 18px / 22px;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--retro-color) 9%, #03100c) 0%,
+    #020806 85%
+  );
+  box-shadow:
+    inset 0 0 0 6px #1b1c20,
+    inset 0 0 50px rgba(0, 0, 0, 0.85);
+  color: var(--retro-color);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--retro-color) 70%, transparent);
+  cursor: text;
+}
+
+.retro-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding: 22px 26px 26px;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--retro-color) 40%, transparent) transparent;
+}
+
+.retro-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 1.25em;
+}
+
+.retro-dim {
+  opacity: 0.6;
+}
+
+.retro-accent {
+  color: color-mix(in srgb, var(--retro-color) 70%, white);
+}
+
+.retro-bright {
+  color: color-mix(in srgb, var(--retro-color) 35%, white);
+}
+
+.retro-error {
+  color: #ff7b7b;
+  text-shadow: 0 0 6px rgba(255, 90, 90, 0.6);
+}
+
+.retro-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.retro-link:hover,
+.retro-link:focus-visible {
+  background: var(--retro-color);
+  color: #031a14;
+  text-shadow: none;
+  outline: none;
+}
+
+.retro-prompt {
+  color: color-mix(in srgb, var(--retro-color) 60%, white);
+  white-space: nowrap;
+}
+
+.retro-input-row {
+  display: flex;
+  gap: 0.6ch;
+}
+
+.retro-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  caret-color: var(--retro-color);
+  caret-shape: block;
+}
+
+.retro-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.22) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.6);
+}
+
+.retro-crt-animate .retro-scanlines {
+  animation: retro-flicker 4s steps(1) infinite;
+}
+
+@keyframes retro-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.93;
+  }
+}
+
+.retro-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 4px 0;
+}
+
+.retro-chips button {
+  padding: 3px 12px;
+  border-radius: 6px;
+  border: 1px solid #b3aa93;
+  border-bottom-width: 3px;
+  background: #ece6d6;
+  color: #4f4a3f;
+  font: inherit;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+
+.retro-chips button:hover,
+.retro-chips button:focus-visible {
+  background: #f6f1e5;
+  outline: none;
+}
+
+.retro-chips button:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.retro-chips button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* snake */
+.retro-snake {
+  margin-top: 8px;
+}
+
+.retro-snake-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.retro-snake canvas {
+  display: block;
+  width: min(100%, 432px);
+  height: auto;
+  touch-action: none;
+}
+
+@media (max-width: 640px) {
+  .retro-overlay {
+    padding: 0;
+  }
+
+  .retro-crt {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    padding: 10px 10px 12px;
+  }
+
+  .retro-scroll {
+    padding: 16px 16px 20px;
+    font-size: 1.15rem;
+  }
+
+  .retro-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 0.8;
+}
+
+.retro-canvas {
+    transition: none;
+  }
+}

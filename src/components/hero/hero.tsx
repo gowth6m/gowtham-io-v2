@@ -12,6 +12,7 @@ import { motion } from 'framer-motion';
 import React, { RefObject, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useIntersectionObserver from '@/hooks/use-intersection-observer';
+import RetroComputer from '@/components/retro-computer/retro-computer';
 
 const Socials = React.memo(() => {
   return (
@@ -105,6 +106,9 @@ export default function Hero({ refAbout, refExperience, refProjects, refContact 
           ))}
         </div>
       </div>
+
+      {/* Retro computer: click it to open the GowthamOS terminal */}
+      <RetroComputer className="retro-desktop-only mt-10 max-w-[260px] md:mt-6" />
 
       {/* Socials */}
       <Socials />
