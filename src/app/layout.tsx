@@ -2,8 +2,8 @@ import '../styles/typingText.css';
 import '../styles/globals.css';
 import '../styles/side.css';
 import '../styles/nav.css';
-import { Metadata } from 'next';
-import { mainMetadata } from './metadata';
+import type { Metadata, Viewport } from 'next';
+import { mainMetadata, viewport as siteViewport } from './metadata';
 import { Inter, Comfortaa, MuseoModerno } from 'next/font/google';
 import BackgroundAnimation from '@/components/misc/background-animation';
 
@@ -21,17 +21,17 @@ const museoModerno = MuseoModerno({
 
 // ------------------------------------------------------------
 
-export const metadata: Metadata = { ...mainMetadata };
+export const metadata: Metadata = mainMetadata;
+export const viewport: Viewport = siteViewport;
 
 // ------------------------------------------------------------
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${comfortaa.variable} ${museoModerno.variable}`}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
-      </head>
+    <html
+      lang="en-GB"
+      className={`${inter.variable} ${comfortaa.variable} ${museoModerno.variable}`}
+    >
       <body>
         <BackgroundAnimation color={'white'} />
         {/* <BackgroundHover /> */}

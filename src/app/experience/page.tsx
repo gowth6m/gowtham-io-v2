@@ -2,42 +2,62 @@ import type { Metadata } from 'next';
 import { experienceMetadata } from '../metadata';
 import ExperienceClient from './experience-client';
 import { experience } from '@/components/experience/experience-data';
+import JsonLd from '@/components/seo/json-ld';
+import { breadcrumbJsonLd } from '@/lib/breadcrumbs';
+import { absoluteUrl, personId, siteConfig, websiteId } from '@/lib/site';
 
 export const metadata: Metadata = experienceMetadata;
 
-const baseUrl = 'https://gowtham.io';
+/** "Jan 2024" -> "2024-01"; returns undefined for "Present" or unparseable values. */
+const toIsoMonth = (value: string) => {
+  const date = new Date(`1 ${value.trim()} UTC`);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 7);
+};
+
+const roles = experience.map((role) => {
+  const [start, end] = role.dates.split(' - ');
+  return {
+    '@type': 'EmployeeRole',
+    roleName: role.role,
+    description: role.description,
+    startDate: toIsoMonth(start ?? ''),
+    ...(end && toIsoMonth(end) ? { endDate: toIsoMonth(end) } : {}),
+    worksFor: {
+      '@type': 'Organization',
+      name: role.company,
+      ...(role.link ? { url: role.link } : {}),
+    },
+    skills: role.technologies.join(', '),
+  };
+});
 
 const experienceJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  name: 'Experience - Gowthaman Ravindrathas',
-  url: `${baseUrl}/experience`,
-  mainEntity: {
-    '@type': 'Person',
-    name: 'Gowthaman Ravindrathas',
-    url: baseUrl,
-    jobTitle: 'Software Engineer',
-    hasOccupation: experience.map((role) => ({
-      '@type': 'Occupation',
-      name: role.role,
-      description: role.description,
-      occupationLocation: {
-        '@type': 'Organization',
-        name: role.company,
-        url: role.link,
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${absoluteUrl('/experience')}#page`,
+      name: `Experience - ${siteConfig.author}`,
+      url: absoluteUrl('/experience'),
+      isPartOf: { '@id': websiteId },
+      inLanguage: siteConfig.language,
+      mainEntity: {
+        '@type': 'Person',
+        '@id': personId,
+        name: siteConfig.author,
+        url: siteConfig.url,
+        jobTitle: siteConfig.jobTitle,
+        worksFor: roles,
       },
-      skills: role.technologies.join(', '),
-    })),
-  },
+    },
+    breadcrumbJsonLd([{ name: 'Experience', path: '/experience' }]),
+  ],
 };
 
 export default function ExperiencePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(experienceJsonLd) }}
-      />
+      <JsonLd data={experienceJsonLd} />
       <ExperienceClient />
     </>
   );

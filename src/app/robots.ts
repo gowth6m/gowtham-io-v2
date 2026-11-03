@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
+import { absoluteUrl } from '@/lib/site';
 
-const baseUrl = process.env.NEXT_PUBLIC_METADATA_BASE || 'https://gowtham.io';
 export const dynamic = 'force-static';
 
 export default function robots(): MetadataRoute.Robots {
@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    sitemap: absoluteUrl('/sitemap.xml'),
   };
 }
