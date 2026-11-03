@@ -1,13 +1,43 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { CommandContext, runCommand, Theme, THEMES, WELCOME } from './commands';
 import { drawSprite, KEY_COUNT, SCREEN_COLS, SPRITE_H, SPRITE_W } from './pixel-sprite';
 import Terminal, { Entry } from './terminal';
 
-const BOOT_LINES = ['GOWTHAM OS', 'READY.', '', '> CLICK ME', '> '];
+const BOOT_LINES = ['HELLO', '', '> '];
 
 const THEME_KEY = 'gowtham-os-theme';
+
+// Phosphor theme lives in localStorage; useSyncExternalStore keeps SSR output stable.
+const themeListeners = new Set<() => void>();
+let memoryTheme: Theme | null = null;
+
+function readTheme(): Theme {
+  if (memoryTheme) return memoryTheme;
+  try {
+    const saved = localStorage.getItem(THEME_KEY) as Theme | null;
+    if (saved && THEMES[saved]) return saved;
+  } catch {
+    /* storage unavailable */
+  }
+  return 'green';
+}
+
+function writeTheme(t: Theme) {
+  memoryTheme = t;
+  try {
+    localStorage.setItem(THEME_KEY, t);
+  } catch {
+    /* ignore */
+  }
+  themeListeners.forEach((l) => l());
+}
+
+function subscribeTheme(listener: () => void) {
+  themeListeners.add(listener);
+  return () => themeListeners.delete(listener);
+}
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -21,11 +51,6 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-function fontFamilyFromVar() {
-  const v = getComputedStyle(document.documentElement).getPropertyValue('--font-vt323').trim();
-  return v ? `${v}, monospace` : 'monospace';
-}
-
 export default function RetroComputer({ className = '' }: { className?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -33,26 +58,14 @@ export default function RetroComputer({ className = '' }: { className?: string }
   const reduced = usePrefersReducedMotion();
 
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>('green');
+  const theme = useSyncExternalStore(subscribeTheme, readTheme, () => 'green' as Theme);
   const [mode, setMode] = useState<'shell' | 'snake'>('shell');
   const [entries, setEntries] = useState<Entry[]>([{ id: 0, lines: WELCOME }]);
   const [history, setHistory] = useState<string[]>([]);
-  const [fontFamily, setFontFamily] = useState('monospace');
   const nextId = useRef(1);
 
   // Mutable animation state, read by the draw loop.
   const anim = useRef({ hover: false, pressedKey: -1, pressedUntil: 0, lastCommand: '' });
-
-  // Restore theme, resolve the terminal font.
-  useEffect(() => {
-    setFontFamily(fontFamilyFromVar());
-    try {
-      const saved = localStorage.getItem(THEME_KEY) as Theme | null;
-      if (saved && THEMES[saved]) setTheme(saved);
-    } catch {
-      /* storage unavailable */
-    }
-  }, []);
 
   useEffect(() => {
     anim.current.lastCommand = history[history.length - 1] ?? '';
@@ -78,7 +91,7 @@ export default function RetroComputer({ className = '' }: { className?: string }
       const a = anim.current;
       const now = performance.now();
       const lines = a.lastCommand
-        ? ['GOWTHAM OS', '', `> ${a.lastCommand}`.slice(0, SCREEN_COLS), 'OK.', '> ']
+        ? ['OK!', `>${a.lastCommand}`.slice(0, SCREEN_COLS), '> ']
         : bootText.slice(0, shown).split('\n');
       drawSprite(ctx, {
         color,
@@ -160,12 +173,7 @@ export default function RetroComputer({ className = '' }: { className?: string }
       return;
     }
     if (effect?.type === 'theme') {
-      setTheme(effect.theme);
-      try {
-        localStorage.setItem(THEME_KEY, effect.theme);
-      } catch {
-        /* ignore */
-      }
+      writeTheme(effect.theme);
     }
     if (effect?.type === 'open') window.open(effect.href, '_blank', 'noopener,noreferrer');
     if (effect?.type === 'snake') setMode('snake');
@@ -232,7 +240,6 @@ export default function RetroComputer({ className = '' }: { className?: string }
           history={history}
           theme={theme}
           mode={mode}
-          fontFamily={fontFamily}
           reducedMotion={reduced}
           onSubmit={submit}
           onClose={close}

@@ -1,11 +1,13 @@
-// Pixel-art retro computer, drawn at native resolution on a tiny canvas and
-// scaled up with `image-rendering: pixelated`. Colours come from the site palette.
+// Pixel-art retro computer, drawn at a very low native resolution on a tiny
+// canvas and scaled up with `image-rendering: pixelated`. Shapes are rasterised
+// with rounded corners and a slanted keyboard so it reads as hand-drawn pixels.
+// Colours come from the site palette.
 
-export const SPRITE_W = 88;
-export const SPRITE_H = 78;
+export const SPRITE_W = 52;
+export const SPRITE_H = 51;
 
-export const SCREEN_COLS = 11;
-export const SCREEN_ROWS = 5;
+export const SCREEN_COLS = 5;
+export const SCREEN_ROWS = 3;
 
 const NAVY_DARK = '#020c1b';
 const NAVY = '#0a192f';
@@ -86,33 +88,56 @@ const FONT: Record<string, string> = {
   '|': '010010010010010',
 };
 
-function rect(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  c: string
-) {
+type Ctx = CanvasRenderingContext2D;
+
+function px(ctx: Ctx, x: number, y: number, c: string, w = 1, h = 1) {
   ctx.fillStyle = c;
   ctx.fillRect(x, y, w, h);
 }
 
-/** Filled box with a 1px outline. */
-function box(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  fill: string,
-  outline: string
-) {
-  rect(ctx, x, y, w, h, outline);
-  rect(ctx, x + 1, y + 1, w - 2, h - 2, fill);
+/** Is (x, y) inside a w x h rect with pixel-rounded corners of radius r? */
+function inRound(x: number, y: number, w: number, h: number, r: number) {
+  if (x < 0 || y < 0 || x >= w || y >= h) return false;
+  const cx = x < r ? r - 0.5 : x >= w - r ? w - r - 0.5 : x;
+  const cy = y < r ? r - 0.5 : y >= h - r ? h - r - 0.5 : y;
+  const dx = x - cx;
+  const dy = y - cy;
+  return dx * dx + dy * dy <= r * r;
 }
 
-function glyph(ctx: CanvasRenderingContext2D, ch: string, x: number, y: number) {
+/**
+ * Rounded box with a 1px outline. `shade` adds a dithered darker band on the
+ * right/bottom edge so the shape has some volume.
+ */
+function roundBox(
+  ctx: Ctx,
+  x0: number,
+  y0: number,
+  w: number,
+  h: number,
+  r: number,
+  fill: string,
+  outline: string,
+  shade?: string
+) {
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      if (!inRound(x, y, w, h, r)) continue;
+      const edge =
+        !inRound(x - 1, y, w, h, r) ||
+        !inRound(x + 1, y, w, h, r) ||
+        !inRound(x, y - 1, w, h, r) ||
+        !inRound(x, y + 1, w, h, r);
+      let c = fill;
+      if (edge) c = outline;
+      else if (shade && (x >= w - 4 || y >= h - 3) && (x + y) % 2 === 0) c = shade;
+      else if (shade && (x >= w - 2 || y >= h - 2)) c = shade;
+      px(ctx, x0 + x, y0 + y, c);
+    }
+  }
+}
+
+function glyph(ctx: Ctx, ch: string, x: number, y: number) {
   const g = FONT[ch];
   if (!g) return;
   for (let i = 0; i < 15; i++) {
@@ -120,94 +145,96 @@ function glyph(ctx: CanvasRenderingContext2D, ch: string, x: number, y: number) 
   }
 }
 
-// Keyboard key layout: [x, y, w] relative to the keyboard origin.
-const KEYS: [number, number, number][] = [];
-for (let i = 0; i < 14; i++) KEYS.push([4 + i * 4, 2, 3]);
-for (let i = 0; i < 13; i++) KEYS.push([6 + i * 4, 4, 3]);
-KEYS.push([16, 6, 30]); // space bar
-export const KEY_COUNT = KEYS.length;
+// Keyboard: slanted (each row shifts left), keys are single pixels.
+const KB_ROWS = [
+  { y: 1, x: 3, n: 14 },
+  { y: 3, x: 4, n: 13 },
+];
+export const KEY_COUNT = KB_ROWS.reduce((n, r) => n + r.n, 0);
 
-export function drawSprite(ctx: CanvasRenderingContext2D, s: SpriteState) {
+export function drawSprite(ctx: Ctx, s: SpriteState) {
   const OUT = s.color;
   ctx.clearRect(0, 0, SPRITE_W, SPRITE_H);
 
-  // Ground shadow
-  ctx.globalAlpha = 0.5;
-  rect(ctx, 6, 76, 76, 1, NAVY_DARK);
-  ctx.globalAlpha = 1;
+  // ground shadow
+  px(ctx, 4, 50, NAVY_DARK, 46, 1);
 
-  // --- desktop unit ---------------------------------------------
-  box(ctx, 8, 54, 72, 11, NAVY_LIGHT, OUT);
-  rect(ctx, 9, 55, 70, 1, NAVY_LIGHTEST); // top highlight
-  // vents
-  for (let i = 0; i < 3; i++) rect(ctx, 18, 57 + i * 2, 12, 1, NAVY_LIGHTEST);
-  // floppy drive
-  box(ctx, 48, 57, 26, 5, NAVY, NAVY_LIGHTEST);
-  rect(ctx, 51, 59, 18, 1, NAVY_DARK);
-  rect(ctx, 70, 60, 2, 1, SLATE);
-  // power LED
-  rect(ctx, 12, 58, 2, 1, s.led ? OUT : NAVY_LIGHTEST);
+  // --- desktop case ---------------------------------------------
+  roundBox(ctx, 3, 33, 44, 8, 2, NAVY_LIGHT, OUT, NAVY);
+  px(ctx, 6, 36, s.led ? OUT : NAVY_LIGHTEST, 2, 1); // power LED
+  px(ctx, 10, 35, NAVY_LIGHTEST, 6, 1); // vents
+  px(ctx, 10, 37, NAVY_LIGHTEST, 6, 1);
+  px(ctx, 29, 36, NAVY_DARK, 12, 1); // floppy slot
+  px(ctx, 29, 37, NAVY_LIGHTEST, 12, 1);
+  px(ctx, 39, 38, SLATE, 2, 1);
 
   // --- monitor (bobs 1px) ---------------------------------------
   const oy = -s.bob;
-  // neck
-  box(ctx, 34, 49 + oy, 20, 6 - oy, NAVY_LIGHT, OUT);
-  // body
-  box(ctx, 14, 3 + oy, 60, 47, NAVY_LIGHT, OUT);
-  rect(ctx, 15, 4 + oy, 58, 1, NAVY_LIGHTEST); // highlight
-  rect(ctx, 15, 4 + oy, 1, 45, NAVY_LIGHTEST);
-  // screen bezel + glass
-  box(ctx, 19, 8 + oy, 50, 34, NAVY_DARK, NAVY_LIGHTEST);
+  // stand
+  roundBox(ctx, 19, 29 + oy, 12, 5 - oy, 1, NAVY, OUT);
+  // CRT back, peeking out on the right
+  roundBox(ctx, 33, 6 + oy, 11, 20, 5, NAVY, OUT);
+  // front
+  roundBox(ctx, 6, 1 + oy, 34, 30, 5, NAVY_LIGHT, OUT, NAVY);
+  px(ctx, 9, 3 + oy, NAVY_LIGHTEST, 24, 1); // top highlight
+  px(ctx, 8, 5 + oy, NAVY_LIGHTEST, 1, 16);
+
+  // screen
+  roundBox(ctx, 10, 5 + oy, 26, 19, 4, NAVY_DARK, NAVY_LIGHTEST);
   if (s.hover) {
-    ctx.globalAlpha = 0.12;
-    rect(ctx, 20, 9 + oy, 48, 32, OUT);
+    ctx.globalAlpha = 0.14;
+    for (let y = 1; y < 18; y++)
+      for (let x = 1; x < 25; x++) if (inRound(x, y, 26, 19, 4)) px(ctx, 10 + x, 5 + oy + y, OUT);
     ctx.globalAlpha = 1;
   }
-  // corner glints
-  rect(ctx, 21, 10 + oy, 2, 1, NAVY_LIGHTEST);
-  rect(ctx, 21, 11 + oy, 1, 1, NAVY_LIGHTEST);
+  // glare
+  px(ctx, 13, 7 + oy, NAVY_LIGHTEST, 2, 1);
+  px(ctx, 12, 8 + oy, NAVY_LIGHTEST, 1, 2);
 
   // text
   ctx.fillStyle = OUT;
   const rows = s.lines.slice(-SCREEN_ROWS);
   rows.forEach((line, r) => {
     const text = line.toUpperCase().slice(0, SCREEN_COLS);
-    for (let c = 0; c < text.length; c++) glyph(ctx, text[c], 22 + c * 4, 12 + r * 6 + oy);
+    for (let c = 0; c < text.length; c++) glyph(ctx, text[c], 13 + c * 4, 8 + r * 6 + oy);
   });
   if (s.cursor) {
     const r = Math.max(0, rows.length - 1);
     const len = Math.min(SCREEN_COLS - 1, (rows[r] ?? '').length);
-    rect(ctx, 22 + len * 4, 12 + r * 6 + oy, 3, 5, OUT);
+    px(ctx, 13 + len * 4, 8 + r * 6 + oy, OUT, 3, 5);
   }
 
-  // scanlines over the glass
-  ctx.globalAlpha = 0.18;
-  for (let y = 10; y < 41; y += 2) rect(ctx, 20, y + oy, 48, 1, NAVY_DARK);
-  ctx.globalAlpha = 1;
-
   // chin: badge + knob
-  rect(ctx, 20, 45 + oy, 8, 1, OUT);
-  rect(ctx, 20, 46 + oy, 8, 1, NAVY_LIGHTEST);
-  box(ctx, 64, 44 + oy, 4, 3, NAVY_LIGHTEST, OUT);
+  px(ctx, 11, 26 + oy, OUT, 4, 1);
+  px(ctx, 33, 26 + oy, OUT, 2, 1);
+  px(ctx, 33, 27 + oy, NAVY_LIGHTEST, 2, 1);
 
-  // --- keyboard -------------------------------------------------
-  const kx = 12;
-  const ky = 66;
-  box(ctx, kx, ky, 64, 10, NAVY_LIGHT, OUT);
-  KEYS.forEach(([x, y, w], i) => {
-    rect(
-      ctx,
-      kx + x,
-      ky + y + (i === s.pressedKey ? 1 : 0),
-      w,
-      1,
-      i === s.pressedKey ? OUT : NAVY_LIGHTEST
-    );
-  });
+  // --- keyboard (slanted) ---------------------------------------
+  const kx = 5;
+  const ky = 43;
+  const KH = 7;
+  const KW = 33;
+  for (let y = 0; y < KH; y++) {
+    const x0 = kx + Math.floor((KH - 1 - y) / 2); // top rows sit further right
+    for (let x = 0; x < KW; x++) {
+      const edge = y === 0 || y === KH - 1 || x === 0 || x === KW - 1;
+      px(ctx, x0 + x, ky + y, edge ? OUT : y >= KH - 2 ? NAVY : NAVY_LIGHT);
+    }
+  }
+  let k = 0;
+  for (const row of KB_ROWS) {
+    const x0 = kx + Math.floor((KH - 1 - row.y) / 2);
+    for (let i = 0; i < row.n; i++, k++) {
+      const pressed = k === s.pressedKey;
+      px(ctx, x0 + row.x + i * 2, ky + row.y, pressed ? OUT : NAVY_LIGHTEST);
+    }
+  }
+  // space bar
+  const sx = kx + Math.floor((KH - 1 - 5) / 2);
+  px(ctx, sx + 9, ky + 5, NAVY_LIGHTEST, 14, 1);
 
-  // --- mouse ----------------------------------------------------
-  box(ctx, 79, 69, 5, 7, NAVY_LIGHT, OUT);
-  rect(ctx, 81, 70, 1, 2, NAVY_LIGHTEST);
-  rect(ctx, 81, 66, 1, 3, OUT);
-  rect(ctx, 80, 64, 2, 2, OUT);
+  // --- mouse + cord ---------------------------------------------
+  roundBox(ctx, 42, 44, 6, 6, 2, NAVY_LIGHT, OUT, NAVY);
+  px(ctx, 44, 45, NAVY_LIGHTEST, 2, 1);
+  px(ctx, 45, 41, OUT, 1, 3);
 }

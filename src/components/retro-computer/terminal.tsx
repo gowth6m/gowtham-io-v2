@@ -12,7 +12,6 @@ type Props = {
   history: string[];
   theme: Theme;
   mode: 'shell' | 'snake';
-  fontFamily: string;
   reducedMotion: boolean;
   onSubmit: (input: string) => void;
   onClose: () => void;
@@ -52,7 +51,6 @@ export default function Terminal({
   history,
   theme,
   mode,
-  fontFamily,
   reducedMotion,
   onSubmit,
   onClose,
@@ -60,6 +58,11 @@ export default function Terminal({
   onKey,
 }: Props) {
   const [value, setValue] = useState('');
+  // Only ever rendered on the client (after a click), so reading CSS here is safe.
+  const [fontFamily] = useState(() => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue('--font-vt323').trim();
+    return v ? `${v}, monospace` : 'monospace';
+  });
   const [cursor, setCursor] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
