@@ -1,20 +1,20 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { absoluteUrl } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
-const baseUrl = process.env.NEXT_PUBLIC_METADATA_BASE || 'https://gowtham.io';
-
-const routes: { url: string; priority: number }[] = [
-  { url: '/', priority: 1 },
-  { url: '/projects', priority: 0.9 },
-  { url: '/experience', priority: 0.9 },
-  { url: '/404', priority: 0.1 },
+const routes: { path: string; priority: number }[] = [
+  { path: '/', priority: 1 },
+  { path: '/projects', priority: 0.8 },
+  { path: '/experience', priority: 0.8 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
-    url: `${baseUrl}${route.url}`,
-    lastModified: new Date(),
-    priority: route.priority,
+  const lastModified = new Date();
+  return routes.map(({ path, priority }) => ({
+    url: absoluteUrl(path),
+    lastModified,
+    changeFrequency: 'monthly',
+    priority,
   }));
 }

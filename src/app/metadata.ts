@@ -1,32 +1,44 @@
-import { Metadata, Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { ogImage, type OgImageKey } from '@/lib/og-image';
+import { siteConfig } from '@/lib/site';
 
-const baseUrl = process.env.NEXT_PUBLIC_METADATA_BASE || 'https://gowtham.io';
-const metadataBase = new URL(baseUrl);
-const defaultImage = '/logo/logo.png';
+const sharedOpenGraph = {
+  type: 'website',
+  locale: siteConfig.locale,
+  siteName: siteConfig.name,
+} satisfies Metadata['openGraph'];
+
+const sharedTwitter = {
+  card: 'summary_large_image',
+  site: siteConfig.twitterHandle,
+  creator: siteConfig.twitterHandle,
+} satisfies Metadata['twitter'];
 
 export const mainMetadata: Metadata = {
-  title: 'Gowthaman Ravindrathas - Software Engineer based in London, UK',
-  description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',
-  applicationName: "Gowtham's Portfolio",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.author}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
   keywords: [
     'Gowthaman Ravindrathas',
+    'Gowtham',
+    'gowth6m',
     'Software Engineer London',
+    'Full-Stack Developer',
     'Frontend Developer',
     'Backend Developer',
-    'Fullstack Developer',
-    'Web Development Portfolio',
     'React Developer',
+    'Next.js Developer',
     'Node.js Developer',
-    'Gowtham Portfolio',
-    'gowth6m',
+    'AI Engineer',
     'Wavelink',
-    'Gowthaman',
-    'Ravindrathas',
-    'Gowtham',
   ],
-  creator: 'Gowthaman Ravindrathas',
-  publisher: 'Gowthaman Ravindrathas',
-  authors: [{ name: 'Gowthaman Ravindrathas', url: 'https://gowtham.io' }],
+  creator: siteConfig.author,
+  publisher: siteConfig.author,
+  authors: [{ name: siteConfig.author, url: siteConfig.url }],
   alternates: {
     canonical: '/',
   },
@@ -36,151 +48,87 @@ export const mainMetadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'Gowthaman Ravindrathas - Software Engineer Portfolio',
-    description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',
-    type: 'website',
-    locale: 'en_GB',
-    siteName: "Gowtham's Portfolio",
-    images: [
-      {
-        url: defaultImage,
-        width: 1200,
-        height: 630,
-        alt: 'Gowtham Logo',
-      },
-    ],
+    ...sharedOpenGraph,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: '/',
+    images: [ogImage('home')],
   },
   twitter: {
-    card: 'summary_large_image',
-    site: '@gowth6m',
-    creator: '@gowth6m',
-    title: 'Gowthaman Ravindrathas - Software Engineer based in London, UK',
-    description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',
-    images: [defaultImage],
+    ...sharedTwitter,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [ogImage('home')],
   },
   icons: {
     icon: [
       { url: '/logo/logo.svg', type: 'image/svg+xml' },
-      { url: '/logo/logo.png', sizes: '180x180' },
+      { url: '/logo/logo.png', type: 'image/png', sizes: '1024x1024' },
     ],
     apple: '/logo/logo.png',
   },
-  category: 'portfolio',
-  robots: 'index, follow',
-  metadataBase,
-};
-
-export const homeMetadata: Metadata = {
-  title: 'Gowthaman Ravindrathas - Software Engineer based in London, UK',
-  description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: 'Gowthaman Ravindrathas - Software Engineer Portfolio',
-    description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',
-    url: '/',
-    type: 'website',
-    locale: 'en_GB',
-    siteName: "Gowtham's Portfolio",
-    images: [
-      {
-        url: defaultImage,
-        width: 1200,
-        height: 630,
-        alt: 'Gowtham Logo',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@gowth6m',
-    creator: '@gowth6m',
-    title: 'Gowthaman Ravindrathas - Software Engineer based in London, UK',
-    description: 'Portfolio of Gowthaman Ravindrathas - Software Engineer based in London, UK',
-    images: [defaultImage],
+  category: 'technology',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0a192f',
+  themeColor: siteConfig.themeColor,
+  colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
 };
 
-export const projectsMetadata: Metadata = {
-  title: 'Projects - Gowthaman Ravindrathas',
-  description:
-    'A collection of software projects by Gowthaman Ravindrathas across AI, frontend, backend, and full-stack engineering.',
-  keywords: [
-    'Gowtham projects',
-    'software portfolio projects',
-    'full-stack projects',
-    'AI projects',
-  ],
-  alternates: {
-    canonical: '/projects',
-  },
+const pageMetadata = ({
+  title,
+  description,
+  path,
+  image,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  image: OgImageKey;
+}): Metadata => ({
+  title,
+  description,
+  alternates: { canonical: path },
   openGraph: {
-    title: 'Projects - Gowthaman Ravindrathas',
-    description:
-      'Explore software projects built by Gowthaman Ravindrathas, including AI products, web platforms, and engineering experiments.',
-    url: '/projects',
-    type: 'website',
-    locale: 'en_GB',
-    siteName: "Gowtham's Portfolio",
-    images: [
-      {
-        url: defaultImage,
-        width: 1200,
-        height: 630,
-        alt: 'Gowtham Portfolio Projects',
-      },
-    ],
+    ...sharedOpenGraph,
+    title: `${title} | ${siteConfig.author}`,
+    description,
+    url: path,
+    images: [ogImage(image)],
   },
   twitter: {
-    card: 'summary_large_image',
-    site: '@gowth6m',
-    creator: '@gowth6m',
-    title: 'Projects - Gowthaman Ravindrathas',
-    description:
-      'Explore software projects built by Gowthaman Ravindrathas, including AI products, web platforms, and engineering experiments.',
-    images: [defaultImage],
+    ...sharedTwitter,
+    title: `${title} | ${siteConfig.author}`,
+    description,
+    images: [ogImage(image)],
   },
-};
+});
 
-export const experienceMetadata: Metadata = {
-  title: 'Experience - Gowthaman Ravindrathas',
+export const projectsMetadata: Metadata = pageMetadata({
+  title: 'Projects',
   description:
-    'Professional experience of Gowthaman Ravindrathas, a software engineer building scalable products across frontend and backend systems.',
-  keywords: ['Gowtham experience', 'software engineer experience', 'career timeline'],
-  alternates: {
-    canonical: '/experience',
-  },
-  openGraph: {
-    title: 'Experience - Gowthaman Ravindrathas',
-    description:
-      'Professional timeline and roles of Gowthaman Ravindrathas across startups and established teams.',
-    url: '/experience',
-    type: 'website',
-    locale: 'en_GB',
-    siteName: "Gowtham's Portfolio",
-    images: [
-      {
-        url: defaultImage,
-        width: 1200,
-        height: 630,
-        alt: 'Gowtham Portfolio Experience',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@gowth6m',
-    creator: '@gowth6m',
-    title: 'Experience - Gowthaman Ravindrathas',
-    description:
-      'Professional timeline and roles of Gowthaman Ravindrathas across startups and established teams.',
-    images: [defaultImage],
-  },
-};
+    'Software projects by Gowthaman Ravindrathas, including AI products, web platforms, and engineering experiments across frontend, backend, and full-stack.',
+  path: '/projects',
+  image: 'projects',
+});
+
+export const experienceMetadata: Metadata = pageMetadata({
+  title: 'Experience',
+  description:
+    'Professional experience of Gowthaman Ravindrathas, a software engineer building scalable products across startups, scale-ups, and established teams.',
+  path: '/experience',
+  image: 'experience',
+});
