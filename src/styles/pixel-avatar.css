@@ -1,0 +1,248 @@
+/* Animated pixel-art avatar (src/components/misc/pixel-avatar.tsx) */
+
+.pixel-avatar {
+  --pa-speed: 1;
+  position: relative;
+  height: 100%;
+  max-height: 200px;
+  aspect-ratio: 1;
+  border: 1px solid var(--lightest-navy);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 85%, rgba(100, 255, 218, 0.12), transparent 60%),
+    var(--light-navy);
+  overflow: hidden;
+  transition:
+    border-color 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+.pixel-avatar:hover {
+  border-color: var(--green-bright);
+  transform: translateY(-2px);
+}
+
+.pixel-avatar[data-active='true'] {
+  --pa-speed: 0.45;
+}
+
+.pixel-avatar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.pixel-avatar g {
+  transform-box: fill-box;
+}
+
+/* Idle head bob */
+.pa-bob {
+  animation: pa-bob calc(1.2s * var(--pa-speed)) steps(1) infinite;
+}
+
+@keyframes pa-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1px);
+  }
+}
+
+/* Blink */
+.pa-eyes-closed {
+  opacity: 0;
+  animation: pa-blink-closed 4.2s steps(1) infinite;
+}
+
+.pa-eyes-open {
+  animation: pa-blink-open 4.2s steps(1) infinite;
+}
+
+@keyframes pa-blink-open {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  94%,
+  97% {
+    opacity: 0;
+  }
+}
+
+@keyframes pa-blink-closed {
+  0%,
+  92%,
+  100% {
+    opacity: 0;
+  }
+  94%,
+  97% {
+    opacity: 1;
+  }
+}
+
+/* Typing hands */
+.pa-hand {
+  animation: pa-type calc(0.36s * var(--pa-speed)) steps(1) infinite;
+}
+
+@keyframes pa-type {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+/* Laptop logo glow */
+.pa-logo {
+  animation: pa-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes pa-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Music notes drifting out of the headphones */
+.pa-note {
+  opacity: 0;
+  animation: pa-note calc(3.6s * var(--pa-speed)) steps(12) infinite;
+}
+
+.pa-note-2 {
+  animation-delay: calc(1.2s * var(--pa-speed));
+}
+
+.pa-note-3 {
+  animation-delay: calc(2.4s * var(--pa-speed));
+}
+
+@keyframes pa-note {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(1px, -7px);
+  }
+}
+
+/* Wave: raised arm shows on hover and once on load; two frames alternate */
+.pa-wave {
+  opacity: 0;
+  animation: pa-show-intro 2.4s steps(1) 0.8s 1 both;
+}
+
+.pa-hand-right {
+  animation:
+    pa-type calc(0.36s * var(--pa-speed)) steps(1) calc(0.18s * var(--pa-speed)) infinite,
+    pa-hide-intro 2.4s steps(1) 0.8s 1 both;
+}
+
+.pixel-avatar:hover .pa-wave {
+  opacity: 1;
+  animation: none;
+}
+
+.pixel-avatar:hover .pa-hand-right {
+  opacity: 0;
+  animation: none;
+}
+
+.pa-wave-a {
+  animation: pa-frame-a 0.5s steps(1) infinite;
+}
+
+.pa-wave-b {
+  animation: pa-frame-b 0.5s steps(1) infinite;
+}
+
+@keyframes pa-frame-a {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pa-frame-b {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pa-show-intro {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pa-hide-intro {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-avatar,
+  .pixel-avatar * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .pixel-avatar:hover {
+    transform: none;
+  }
+
+  .pa-wave-b,
+  .pa-eyes-closed,
+  .pa-note {
+    opacity: 0;
+  }
+
+  .pa-hand-right {
+    opacity: 1;
+  }
+
+  .pa-wave {
+    opacity: 0;
+  }
+
+  .pixel-avatar:hover .pa-wave {
+    opacity: 1;
+  }
+
+  .pixel-avatar:hover .pa-hand-right {
+    opacity: 0;
+  }
+}

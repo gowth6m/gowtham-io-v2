@@ -2,6 +2,7 @@ import '../styles/typingText.css';
 import '../styles/globals.css';
 import '../styles/side.css';
 import '../styles/nav.css';
+import '../styles/pixel-avatar.css';
 import type { Metadata, Viewport } from 'next';
 import { mainMetadata, viewport as siteViewport } from './metadata';
 import { Inter, Comfortaa, MuseoModerno } from 'next/font/google';
